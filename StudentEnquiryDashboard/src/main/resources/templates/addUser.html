@@ -1,0 +1,130 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .o{
+            color:green;
+        }
+        .g{
+            display:flex;
+            padding:20px;
+            background-color: white;
+            margin-top:100px;
+        }
+        .c2{
+            padding:30px;
+            margin-left:100px;
+        }
+
+
+        body{
+            background-color:gainsboro;
+        }
+
+        .login-form {
+          width: 340px;
+          margin: 50px auto;
+        }
+        .login-form form {
+          margin-bottom: 15px;
+          background: #f7f7f7;
+          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+          padding: 20px;
+        }
+        .login-form h2 {
+          margin: 0 0 15px;
+        }
+        .form-control, .btn {
+          min-height: 38px;
+          border-radius: 2px;
+        }
+        .btn {
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .red{
+            color:green;
+        }
+
+        .lost{
+            color:red;
+        }
+		
+		.msg{
+			font-weight: bold;
+			color:darkcyan;
+		}
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+			<a class="navbar-brand">Coaching Classes</a>
+			          <a href = "/dashboard" class = "o">Home</a>
+			          <a href = "/add" class = "o">Add Enquiry</a>
+			          <a href = "/view" class = "o">View Enquiry</a>
+          <form action="/logout" method="get">
+            <button class="btn btn-outline-danger" type="submit">Logout</button>
+          </form>
+        </div>
+      </nav>
+
+
+      <div class = "g container">
+        <div class = "c1">
+        <img src = "https://img.freepik.com/premium-vector/woman-sitting-medical-clinic-reception-hospital-front-desk-isolated-white-background_80590-13078.jpg" />
+        </div>
+        <div class="c2">
+            <div class="login-form">
+                <form method="POST" th:action="@{/studentsave}" th:object="${student}">
+                  <h2 class="text-center">Add Student Enquiry</h2>
+                  <div class="form-group">
+                    <input type="text" th:field="*{studentName}" class="form-control" placeholder="Student Name" required="required">
+					<input type="hidden" th:field="*{st_id}"/>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" th:field="*{contact}" class="form-control" placeholder="Contact Number" required="required">
+                  </div>
+                  <div class="form-group">
+					<select th:field="*{classMode}" class="form-control" placeholder="Class Mode" required="required">
+					<option th:value = "''" th:text="'Select Mode'"></option>
+					<option th:value="'Online'" th:text="Online"></option>
+				    <option th:value="'Offline'" th:text="Offline"></option>
+				</select>
+                  </div>
+                  <div class="form-group">
+					<select th:field="*{course}" class="form-control" placeholder="Course" required="required" id="dropDownList">
+					    <option value="">Select Course</option>
+					    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+					</select>
+                  </div>
+                  <div class="form-group">
+					<select th:field="*{status}" class="form-control" placeholder="Status" required="required" id="dropDownList2">
+				    <option value="">Select Course</option>
+				    <option th:each="option : ${options2}" th:value="${option}" th:text="${option}"></option>
+				    </select>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                  </div>
+                </form>
+				
+				<p class = "msg" th:text="${msg}"/>
+              </div>
+        </div>
+      </div>
+
+     
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
